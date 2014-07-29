@@ -1,0 +1,102 @@
+<div id="page">
+
+<a href="/">Gå til oversikt</a>
+
+<form id="add_new_fibre_type" name="add_new_fibre_type" action="/add_new_fibre_type" method="post">
+
+<table>
+<tr>
+	<td>Sted</td>
+	<td>
+		<input type="text" name="text_fibre_location">
+		
+	</td>
+	<td>
+		<select name="select_fibre_location">
+			<option value="Bergen">Bergen</option>
+			<option value="Stavanger">Stavanger</option>
+			<option value="Haugesund">Haugesund</option>
+
+		</select>
+	</td>
+</tr>
+
+<tr>
+	<td>Type</td>
+	<td>
+		<input type="text" name="text_fibre_type">
+		
+	</td>
+	<td>
+		<select name="select_fibre_type">
+			<option value="Single_modus">Single_modus</option>
+			<option value="Multi_modus">Multi_modus</option>
+
+		</select>
+	</td>
+</tr>
+
+<tr>
+	<td>Kobling</td>
+	<td>
+		<p class="anft_form">Fra</p><input type="text" name="text_fibre_connector_from">
+		
+	</td>
+	<td>
+		<p class="anft_form">Til</p><input type="text" name="text_fibre_connector_to">
+		
+	</td>
+	
+	<td>
+		<p class="anft_form">Fra</p>
+		<select name="select_fibre_connector_from">
+			<option value="lc">lc</option>
+			<option value="sc">sc</option>
+			<option value="st">st</option>
+						
+		</select>
+	</td>
+	<td>
+		<p class="anft_form">Til</p>
+		<select name="select_fibre_connector_to">
+			<option value="lc">lc</option>
+			<option value="sc">sc</option>
+			<option value="st">st</option>
+		</select>
+	</td>
+</tr>
+
+<tr>
+	<td>Lengde</td>
+	<td>
+		<input type="text" name="text_fibre_length">		
+	</td>
+	<td>
+		<select name="select_fibre_length">
+			<option value="0,5">0,5</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+		</select>
+		<p class="anft_form">meter</p>
+	</td>
+</tr>
+<tr><td><input type="submit" value="Legg til ny kabel type"></td></tr>
+</table>
+</form>
+
+
+<p id="after_post_msg">La til ny fiber_type med parametre</p>
+
+<% FOREACH key = hei.keys %>
+   <% key %> => <% hei.$key %>
+<% END %>
+
+<% hei.select_fibre_connector_from %>
+<% hei.select_fibre_location %>
+<% hei.select_fibre_length %>
+
+
+
+
+</div>

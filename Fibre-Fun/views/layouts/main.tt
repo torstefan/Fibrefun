@@ -14,9 +14,11 @@
 
 </head>
 <body>
+<h1> Fibrefun - Interlager oversikt for fiber - Kommunikasjon, Helse Vest IKT </h1>
 <% content %>
 <div id="footer">
 Powered by <a href="http://perldancer.org/">Dancer</a> <% dancer_version %>
+<br/><a href="http://grammarist.com/spelling/fiber-fibre/">fibre?
 </div>
 </body>
 </html>
