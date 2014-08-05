@@ -88,8 +88,8 @@
 
 <p id="after_post_msg">La til ny fiber_type med parametre</p>
 
-<% FOREACH key = hei.keys %>
-   <% key %> => <% hei.$key %>
+<% FOREACH key = hei.keys.sort %>
+   <% key %> => <% hei.$key %> <br />
 <% END %>
 
 <% hei.select_fibre_connector_from %>
