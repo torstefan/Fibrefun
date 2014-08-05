@@ -4,8 +4,9 @@ use Dancer::Plugin::Database;
 use Data::Dumper;
 
 our $VERSION = '0.1';
-my $GLOBAL_REGEXP_fibre_input_to_db = '\A[A-Za-z0-9,_]+|\s+\Z';
 
+my $global_regexp_fibre_input_to_db = '\A[A-Za-z0-9,_]+\Z';
+my @global_hvikt_fibre_columns = qw/LOCATION TYPE CONNECTOR_FROM CONNECTOR_TO LENGTH AMOUNT UPDATED UPDATED_BY/;
 
 
 get '/' => sub {
@@ -44,12 +45,12 @@ sub build_insert_query{
 	
 	
 	foreach my $fp (keys %{$fibre_params_from_user}){
-		if($fp =~ /\Atext_fibre_([a-z_]+)\Z/g){
+		if($fp =~ /\Atext_fibre_([a-z_]+)\Z/){
 			my $row_name = uc $1;
 			
-			info "build_insert_query() Checking value $fibre_params_from_user->{$fp} for param $fp against REGEXP: $GLOBAL_REGEXP_fibre_input_to_db";
+			info "build_insert_query() Checking value $fibre_params_from_user->{$fp} for param $fp against REGEXP: $global_regexp_fibre_input_to_db";
 			
-			if($fibre_params_from_user->{$fp} =~ /$GLOBAL_REGEXP_fibre_input_to_db/g ){
+			if($fibre_params_from_user->{$fp} =~ /$global_regexp_fibre_input_to_db/ ){
 				$fibre_input_to_db->{$row_name}{NEW_FIELD} = 1;	
 				info "NEW PARAM: $fibre_params_from_user, $fp, $fibre_input_to_db, $row_name";
 				$fibre_input_to_db = update_insert_query_hash($fibre_params_from_user, $fp, $fibre_input_to_db, $row_name);		
@@ -57,7 +58,7 @@ sub build_insert_query{
 
 			
 			
-		}elsif($fp =~ /\Aselect_fibre_([a-z_]+)\Z/g){
+		}elsif($fp =~ /\Aselect_fibre_([a-z_]+)\Z/){
 			my $row_name = uc $1;
 			unless( $fibre_input_to_db->{$row_name}{NEW_FIELD}){
 				info "OLD PARAM: $fibre_params_from_user, $fp, $fibre_input_to_db, $row_name";
@@ -69,6 +70,7 @@ sub build_insert_query{
 		
 	}
 	info "FIBRE_INPUT_TO_DB\n " . Dumper($fibre_input_to_db);
+	return $fibre_input_to_db;
 	
 }
 
@@ -77,21 +79,55 @@ sub update_insert_query_hash {
 	my $fp 						= shift;
 	my $fibre_input_to_db 		= shift;
 	my $row_name				= shift;
-	
 		
-	
-	info "update_insert_query_hash() Checking value $fibre_params_from_user->{$fp} for param $fp against REGEXP: $GLOBAL_REGEXP_fibre_input_to_db";
+	info "update_insert_query_hash() Checking value $fibre_params_from_user->{$fp} for param $fp against REGEXP: $global_regexp_fibre_input_to_db";
 	    
-	if($fibre_params_from_user->{$fp} =~ /$GLOBAL_REGEXP_fibre_input_to_db/g){
+	if($fibre_params_from_user->{$fp} =~ /$global_regexp_fibre_input_to_db/){
 		info "update_insert_query_hash() Updating $row_name with $fibre_params_from_user->{$fp}";
 		$fibre_input_to_db->{$row_name}{VALUE} = $fibre_params_from_user->{$fp};				
 	}
+	
 	info "update_insert_query_hash() VALUE: " . $fibre_input_to_db->{$row_name}{VALUE};
 	return $fibre_input_to_db;
 }
 sub add_fibre_type_to_db {
 	my $fibre_params_from_user = shift;
-	build_insert_query($fibre_params_from_user);
+	my $form_data_to_db = build_insert_query($fibre_params_from_user);
+	
+	# LOCATION TYPE CONNECTOR_FROM CONNECTOR_TO LENGTH AMOUNT UPDATED UPDATED_BY
+	
+	my @values;
+	
+	foreach my $column (@global_hvikt_fibre_columns){
+		if(defined $form_data_to_db->{$column}{VALUE}){
+			push @values, $form_data_to_db->{$column}{VALUE};
+			info "add_fibre_type_to_db() $column has value " . $form_data_to_db->{$column}{VALUE} ;
+		}else{
+			if($column eq "AMOUNT"){
+				push @values, "0";			
+			}
+			if($column eq "UPDATED"){
+				my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) =
+                                                localtime(time);
+				push @values, ($year += 1900)."-".($mon + 1)."-$mday $hour:$min";			
+			}
+			if($column eq "UPDATED_BY"){				
+				push @values, $ENV{HTTP_HOST};
+			}
+		}
+		
+	}
+	
+	info "add_fibre_type_to_db() values ready for INSERT: \n\n @{values} \n\n";
+	
+	my $sth = database->prepare(
+		'INSERT INTO HVIKT_FIBRE values(?,?,?,?,?,?,?,?)'
+	);
+	
+	if(defined $sth){
+		$sth->execute(@values);
+		info Dumper($sth->fetchrow_hashref);
+	}
 		
 }
 
@@ -109,7 +145,7 @@ sub get_fibre_types_from_db {
 	
 	if(defined $sth){
 		$sth->execute();
-		info Dumper($sth->fetchrow_hashref);
+		info "get_fibre_types_from_db() ". Dumper($sth->fetchall_hashref('LOCATION'));
 	}
 	
 	
