@@ -17,6 +17,11 @@ get '/' => sub {
     };
 };
 
+post 'update_amount_fibre_type' => sub{
+	
+	redirect '/';
+};
+
 get '/add_new_fibre_type' => sub {
     if(defined(session('fibre_params_from_user'))){
     	my $fp = session('fibre_params_from_user');

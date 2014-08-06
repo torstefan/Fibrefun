@@ -1,3 +1,16 @@
+h1{
+	font-family:arial;
+	letter-spacing: 0.5px;
+}
+body{
+	font-family:arial;
+	padding-left:5px;
+}
+
+div#page{
+	padding-left:20px;
+}
+
 #footer{
 	padding-top: 50px;
 }
@@ -7,4 +20,37 @@ p#after_post_msg{
 }
 p.anft_form{
 	display: inline-block;
+}
+input[type="text"]{
+    position: relative;
+	top: -3px;
+    color: #555;
+
+    height: 25px;
+    line-height:12px;
+    padding: 0px 0px 0px 10px;
+    margin-top: 2px;
+    border: 1px solid #E5E5E5;
+    background: #FBFBFB;
+    outline: 0;
+}
+img#up{
+	position: relative;
+	top: 5px;
+	height: 25px;
+	width: 25px;
+	padding-top: 0px;
+	padding-right: 5px;
+	padding-bottom: 0px;
+	
+}
+
+img#down{
+	position: relative;
+	top: 5px;
+	height: 25px;
+	width: 25px;
+	padding-top: 0px;
+	padding-right:0px;
+	padding-bottom: 0px;
 }

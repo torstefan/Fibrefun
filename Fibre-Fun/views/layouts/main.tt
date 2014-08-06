@@ -13,9 +13,12 @@
 
 <script type="text/javascript"">
 $(document).ready(function() { 
+
+	$.tablesorter.defaults.widgets = ['zebra'];
+	 
     // call the tablesorter plugin 
     $("#table1").tablesorter({ 
-        // sort on the first column and third column, order asc 
+        // sort on the first column , second and and fith column, order asc 
         sortList: [[0,0],[1,0],[4,0]] 
     });
 }); 
@@ -24,7 +27,7 @@ $(document).ready(function() {
 
 </head>
 <body>
-<h1> Fibrefun -  Internlageroversikt for fiber - Kommunikasjon, Helse Vest IKT </h1>
+<h1>Internlageroversikt for fiber - Kommunikasjon, Helse Vest IKT </h1>
 <% content %>
 <div id="footer">
 Powered by <a href="http://perldancer.org/">Dancer</a> <% dancer_version %>
