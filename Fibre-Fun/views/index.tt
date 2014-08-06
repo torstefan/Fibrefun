@@ -1,7 +1,7 @@
 <div id="page">
 <br/>
 
-<form name="input" action="update_amount_fibre_type" method="get">
+<form id="update_amount" name="input" action="update_amount_fibre_type" method="post">
 	<table cellspacing="1" id="table1" class="tablesorter">
 	
 	
@@ -23,8 +23,9 @@
 				<%FOREACH col IN column_order%>
 					<% IF col == 'AMOUNT' %>				
 					<td>
-						<input type="text" name="<% row.value.ID %>_<% col %>" value="<% row.value.$col %>" size="5">
-						<img id="up" src="images/up.png"><img id="down" src="images/down.png">
+						<input 	type="text" 	name="<% row.value.ID %>_<% col %>" 	value="<% row.value.$col %>" size="5">
+						<img 	class="up" 		id="up_<% row.value.ID %>" 				src="images/up.png">
+						<img 	class="down" 	id="down_<% row.value.ID %>"			src="images/down.png">
 					</td>
 					<%ELSE%>
 					<td><% row.value.$col %></td>

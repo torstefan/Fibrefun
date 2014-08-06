@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=<% settings.charset %>" />
 <title>Fibre::Fun</title>
@@ -9,26 +10,18 @@
 
 <script type="text/javascript" src="<% request.uri_base %>/javascripts/tablesorter/jquery-latest.js"></script>
 <script type="text/javascript" src="<% request.uri_base %>/javascripts/tablesorter/jquery.tablesorter.js"></script> 
-
-
-<script type="text/javascript"">
-$(document).ready(function() { 
-
-	$.tablesorter.defaults.widgets = ['zebra'];
-	 
-    // call the tablesorter plugin 
-    $("#table1").tablesorter({ 
-        // sort on the first column , second and and fith column, order asc 
-        sortList: [[0,0],[1,0],[4,0]] 
-    });
-}); 
-
-</script>
-
+<script type="text/javascript" src="<% request.uri_base %>/javascripts/fibrefun.js"></script>
 </head>
+
+
 <body>
 <h1>Internlageroversikt for fiber - Kommunikasjon, Helse Vest IKT </h1>
 <% content %>
+
+<div id="info_msg">
+<% info_msg %>
+</div>
+
 <div id="footer">
 Powered by <a href="http://perldancer.org/">Dancer</a> <% dancer_version %>
 <br/><a href="http://grammarist.com/spelling/fiber-fibre/">fibre?

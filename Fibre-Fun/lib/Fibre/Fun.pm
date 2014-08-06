@@ -11,14 +11,17 @@ my @global_hvikt_fibre_columns = qw/LOCATION TYPE CONNECTOR_FROM CONNECTOR_TO LE
 
 get '/' => sub {
 	my $column_order = \@global_hvikt_fibre_columns;
+		
     template 'index', {
     	fibre_types_table 	=> 	get_fibre_types_from_db(),
-    	column_order 		=>	$column_order 
+    	column_order 		=>	$column_order,
+    	info_msg			=> 	session('info_msg')
     };
 };
 
-post 'update_amount_fibre_type' => sub{
-	
+post '/update_amount_fibre_type' => sub{
+	my $param = params;
+	session info_msg => Dumper($param); 
 	redirect '/';
 };
 

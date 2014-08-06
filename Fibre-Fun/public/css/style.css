@@ -11,6 +11,12 @@ div#page{
 	padding-left:20px;
 }
 
+div#info_msg{	
+	padding-top:30px;
+	padding-left:60px;
+	font-size:10pt;
+}
+
 #footer{
 	padding-top: 50px;
 }
@@ -34,7 +40,7 @@ input[type="text"]{
     background: #FBFBFB;
     outline: 0;
 }
-img#up{
+img.up{
 	position: relative;
 	top: 5px;
 	height: 25px;
@@ -45,7 +51,7 @@ img#up{
 	
 }
 
-img#down{
+img.down{
 	position: relative;
 	top: 5px;
 	height: 25px;

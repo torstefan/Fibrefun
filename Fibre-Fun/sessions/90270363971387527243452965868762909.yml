@@ -22,3 +22,12 @@ fibre_params_from_user:
   text_fibre_location: ''
   text_fibre_type: ''
 id: 90270363971387527243452965868762909
+info_msg: |
+  $VAR1 = {
+            '3_AMOUNT' => '0',
+            '5_AMOUNT' => '0',
+            '1_AMOUNT' => '0',
+            '4_AMOUNT' => '0',
+            '2_AMOUNT' => '0',
+            'row_id' => 'up_1'
+          };
