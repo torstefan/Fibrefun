@@ -18,7 +18,7 @@ fibre_params_from_user:
   select_fibre_type: Single_modus
   text_fibre_connector_from: ''
   text_fibre_connector_to: ''
-  text_fibre_length: ''
+  text_fibre_length: '0,6'
   text_fibre_location: ''
   text_fibre_type: ''
 id: 90270363971387527243452965868762909

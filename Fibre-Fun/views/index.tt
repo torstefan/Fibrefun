@@ -1,6 +1,36 @@
 <div id="page">
+<br/>
+<table cellspacing="1" id="table1" class="tablesorter">
 
+
+
+<% FOREACH row IN fibre_types_table %>
+<% row_nr = loop.count %>			
+	<% IF row_nr == '1' %>
+	<thead>
+		<tr>
+			<%FOREACH col IN column_order%>
+				<th><% col %></th>
+			<%END%>	
+		</tr>
+	</thead>
+	<tbody>		
+	<% END %>
+	
+		<tr>
+			<%FOREACH col IN column_order%>
+				<th><% row.value.$col %></th>
+			<%END%>		
+		</tr>
+	<%IF loop.last%>
+		</tbody>
+	<% END %>
+<%END%>		
+</table>
+
+<br/>
 <a href="add_new_fibre_type">Legg til ny kabeltype</a>
 
 </div>
+
 

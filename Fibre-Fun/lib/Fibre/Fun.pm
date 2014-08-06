@@ -10,8 +10,11 @@ my @global_hvikt_fibre_columns = qw/LOCATION TYPE CONNECTOR_FROM CONNECTOR_TO LE
 
 
 get '/' => sub {
-	get_fibre_types_from_db();
-    template 'index';
+	my $column_order = \@global_hvikt_fibre_columns;
+    template 'index', {
+    	fibre_types_table 	=> 	get_fibre_types_from_db(),
+    	column_order 		=>	$column_order 
+    };
 };
 
 get '/add_new_fibre_type' => sub {
@@ -136,7 +139,7 @@ sub remove_fibre_type_in_db {}
 sub get_fibre_types_from_db {
 	use Cwd;
 	my $dir = getcwd;
-
+	my $hvikt_fibre_from_db_href;
 	info "Current dir: $dir";	
 
 	my $sth = database->prepare(
@@ -145,10 +148,11 @@ sub get_fibre_types_from_db {
 	
 	if(defined $sth){
 		$sth->execute();
-		info "get_fibre_types_from_db() ". Dumper($sth->fetchall_hashref('ID'));
+		$hvikt_fibre_from_db_href = $sth->fetchall_hashref('ID');
+		info "get_fibre_types_from_db() ". Dumper($hvikt_fibre_from_db_href);
 	}
 	
-	
+	return $hvikt_fibre_from_db_href;
 }
 
 sub uniq_fibre_type_in_db {}
