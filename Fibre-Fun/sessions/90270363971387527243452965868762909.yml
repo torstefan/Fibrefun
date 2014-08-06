@@ -11,7 +11,7 @@ fibre_params:
   text_fibre_location: ''
   text_fibre_type: ''
 fibre_params_from_user:
-  select_fibre_connector_from: sc
+  select_fibre_connector_from: lc
   select_fibre_connector_to: lc
   select_fibre_length: '0,5'
   select_fibre_location: Bergen

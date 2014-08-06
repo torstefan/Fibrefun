@@ -121,7 +121,7 @@ sub add_fibre_type_to_db {
 	info "add_fibre_type_to_db() values ready for INSERT: \n\n @{values} \n\n";
 	
 	my $sth = database->prepare(
-		'INSERT INTO HVIKT_FIBRE values(?,?,?,?,?,?,?,?)'
+		'INSERT INTO HVIKT_FIBRE (LOCATION, TYPE, CONNECTOR_FROM, CONNECTOR_TO, LENGTH, AMOUNT, UPDATED, UPDATED_BY) values(?,?,?,?,?,?,?,?)'
 	);
 	
 	if(defined $sth){
@@ -145,7 +145,7 @@ sub get_fibre_types_from_db {
 	
 	if(defined $sth){
 		$sth->execute();
-		info "get_fibre_types_from_db() ". Dumper($sth->fetchall_hashref('LOCATION'));
+		info "get_fibre_types_from_db() ". Dumper($sth->fetchall_hashref('ID'));
 	}
 	
 	
